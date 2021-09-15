@@ -3,23 +3,6 @@ kind: Service
 metadata:
   labels:
     app: mailhog
-  name: mailhog-service-clusterip
-  namespace: pensionapp
-spec:
-  ports:
-    - name: smtp
-      port: 1025
-      targetPort: 1025
-  selector:
-    app: mailhog
-status:
-  loadBalancer: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: mailhog
   name: mailhog-service-nodeport
   namespace: pensionapp
 spec:
@@ -31,4 +14,9 @@ spec:
       port: 8025
       targetPort: 8025
       nodePort: 30000
+      protocol: TCP
+    - name: smtp
+      port: 1025
+      targetPort: 1025
+      nodePort: 30003
       protocol: TCP
